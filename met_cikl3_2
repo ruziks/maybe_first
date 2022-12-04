@@ -1,0 +1,17 @@
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+using namespace std;
+
+
+int main(){
+	int k = 0;
+	int i = 10;
+	while (i < 100) {
+		if (abs((i % 10) - (i / 10)) <= 1) {
+			k += 1;
+		}
+		i += 1;
+	}
+	cout << k;
+}
