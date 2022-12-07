@@ -1,0 +1,22 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+
+int func(int n) {
+	if (n == 1) {
+		return 100;
+	}
+	else if (n == 2 * n) {
+		return func(2 * n - 1) / 10;
+	}
+	else if (n == 2 * n + 1) {
+		return func(2 * n) + 10;
+	}
+}
+int main() {
+	int x;
+	cin >> x;
+	cout << func(x);
+}
