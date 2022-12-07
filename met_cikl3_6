@@ -1,0 +1,30 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+
+double func(double i, double a, double b, double h) {
+	double x, y;
+	x = a+i*h;
+	if (x > 0) {
+		y = x;
+	}
+	else if (x < -1) {
+		y = x * x;
+	}
+	else {
+		y = 0;
+	}
+	cout << i << "  " << x << "     " << y << endl;
+	return 0;
+}
+int main() {
+	double a, b, h;
+	cin >> a >> b >> h;
+	cout << "   " << "x" << "     " << "y" << endl;
+	double n = (b - a) / h;
+	for (int i = 0; i <= n; i++) {
+		func(i, a, b, h);
+	}
+}
