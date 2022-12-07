@@ -1,0 +1,22 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+
+double func(double i, double a, double b, double h) {
+	double x, y;
+	x = a+i*h;
+	y = sqrt(x * x * x + 1) / sqrt(x * x - 1);
+	cout <<i<<"  " << x << "     " << y << endl;
+	return 0;
+}
+int main() {
+	double a, b, h;
+	cin >> a >> b >> h;
+	cout <<"   " << "x" << "     " <<"y"<<endl;
+	double n = (b - a) / h;
+	for (int i = 0; i <= n; i++) {
+		func(i, a, b, h);
+	}
+}
