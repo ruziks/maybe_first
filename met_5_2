@@ -1,0 +1,18 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main() {
+	float p = 1;
+	int n; float x;
+	cin >> n >> x;
+	for (int i = 1; i <= n; i++) {
+		int fact=1;
+		for (int o = 1; o <= n; o++) {
+			fact *= o;
+		}
+		p *= (1+(pow(x,i)/2*fact));
+	}
+	cout << p;
+}
