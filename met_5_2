@@ -10,8 +10,8 @@ int main() {
 	double fact = 1;
 	for (int i = 1; i <= k; i++) {
 		fact *= i;
-		p *= (1 + (pow(x, i) / 2 * fact));
-		
+		p *= (1 + (x / 2 * fact));
+		x = x * x;
 	}
 	cout << p;
 }
