@@ -4,17 +4,18 @@
 using namespace std;
 
 
-int replace(int t) {
+void replace(int &t) {
 	if (t % 2 != 0) {
 		t = 0;
 	}
 	else {
 		t = t / 2;
 	}
-	return t;
+	
 }
 int main() {
 	int x;
 	cin >> x;
-	cout<<replace(x);
+	replace(x);
+	cout<<x;
 }
