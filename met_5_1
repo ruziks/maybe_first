@@ -8,7 +8,8 @@ int main() {
 	int n; float x;
 	cin >> n >> x;
 	for (int i = 1; i <= n; i++) {
-		s += sin(pow(x, i));
+		s += sin(x);
+		x = x * x;
 	}
 	cout << s;
 }
