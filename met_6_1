@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath> 
+using namespace std;
+int main() {
+	int arr[1000];
+	int n, a, b;
+	int s;
+	cin >> n; 
+	cin >> a>>b;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+
+	for (int j= 0; j < n; j++) {
+		if (arr[j] <= b && arr[j] >= a)
+		s+=arr[j];
+	}
+	cout << s << endl;
+}
+
+
+
+#include <iostream>
+#include <cmath> 
+using namespace std;
+int main() {
+	int arr[1000][1000];
+	int n, m, a, b, s;
+	cin >> n;
+	cin >> m;
+	cin >> a>>b;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++)
+			cin >> arr[i][j];
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (arr[i][j] <= b && arr[i][j] >= a)
+				s+=arr[i][j];
+		}
+	}
+}
