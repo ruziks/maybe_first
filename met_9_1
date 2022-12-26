@@ -1,0 +1,17 @@
+#include <iostream>
+#include <algorithm>
+#include "fstream"
+#include <string>
+using namespace std;
+
+int main() {
+    int counter = 0;
+    int n = 100000;
+    string str, ns, s, s1;
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+    int x, x1;
+    while(getline(in, s, '\n')) {
+        out << s << ' ' << s.size()<<endl;
+    }
+}
