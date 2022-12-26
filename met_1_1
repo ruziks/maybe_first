@@ -1,0 +1,12 @@
+#include <cmath>
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main(){
+    double x,y;
+    cin>>x>>y;
+    cout<<setprecision(5)<<log(abs((y-sqrt(abs(x))*(x-y/(x+x*x/4)))))<<endl; 
+    return 0; 
+}
