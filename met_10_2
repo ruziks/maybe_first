@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+ifstream in("input.txt");
+ofstream out("output.txt");
+
+struct sotrudnik {
+    string m, num, f;
+    int year, pr;
+    void print() {
+        out << m << ' ' << num << ' ' << f << ' ' << year << ' ' << pr << '\n';
+    }
+    void read() {
+        in >> m >> num >> f >> year >> pr;
+    }
+};
+
+
+int main() {
+    sotrudnik a;
+    int znach; in >> znach;
+    while (!in.eof()) {
+        a.read();
+        if (a.pr >= znach) {
+            a.print();
+        }
+    }
+    in.close();
+    out.close();
+}
