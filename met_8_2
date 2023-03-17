@@ -1,0 +1,22 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+int F(int n) {
+    if (n == 1) {
+        return -10;
+    }
+    else if (n == 2) {
+        return 2;
+    }
+    else if(n>2){
+        return (abs(F(n - 2) - 6 * F(n - 1)));
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    cout << F(n);
+}
