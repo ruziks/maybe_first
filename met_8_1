@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+int f(int n) {
+    static int k = 2;
+    static int d=2;
+    if (n / 2 < d) {
+        return k;
+    }
+    else if(n%d==0){
+        k++;
+        d++;
+        f(n);
+    }
+    else {
+        d++;
+        f(n);
+    }
+}
+
+int main()
+{
+    int a, b; cin >> a >> b;
+    for (int n = a; n < b; n++) {
+        cout << f(n) << endl;
+    }
+}
