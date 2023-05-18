@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+class Rational {
+private:
+    int numerator;
+    int denominator;
+public:
+    Rational(int num, int denom) { // конструктор класса
+        numerator = num;
+        denominator = denom;
+    }
+    void print() {
+        cout << numerator << "/" << denominator << endl;
+
+    }
+    void input(int num, int denom) {
+        numerator = num;
+        denominator = denom;
+    }
+    void simplify() {
+        int divisor = nod(numerator, denominator); 
+        numerator /= divisor; 
+        denominator /= divisor; 
+    }
+    int nod(int a, int b) { 
+        return b == 0 ? a : nod(b, a % b);
+    }
+    void sravn(Rational other) {
+        if (numerator / double(denominator) == other.numerator / double(other.denominator)) {
+            cout << "equal" << endl;
+        }
+        else if (numerator / double(denominator) > other.numerator / double(other.denominator)) {
+            cout << "the first is larger" << endl;
+        }
+        else {
+            cout << "the second is larger" << endl;
+        }
+    }
+    Rational operator+(Rational other) {
+        int num = numerator * other.denominator + denominator * other.numerator;
+        int denom = denominator * other.denominator;
+        return Rational(num, denom);
+    }
+
+    Rational operator-(Rational other) {
+        int num = numerator * other.denominator - denominator * other.numerator;
+        int denom = denominator * other.denominator;
+        return Rational(num, denom);
+    }
+
+    Rational operator*(Rational other) {
+        int num = numerator * other.numerator;
+        int denom = denominator * other.denominator;
+        return Rational(num, denom);
+    }
+
+    Rational operator/(Rational other) {
+        int num = numerator * other.denominator;
+        int denom = denominator * other.numerator;
+        return Rational(num, denom);
+    }
+ };
+int main(){
+    Rational r1(3, 4);
+    Rational r2(2, 5);
+
+    r1.print(); 
+    r2.print(); 
+
+    r1.input(5, 6); 
+    r1.print(); 
+
+    r2.simplify();
+    r2.print();
+
+    r1.sravn(r2); 
+
+    Rational sum = r1 + r2; 
+    sum.print();
+
+    Rational dif = r1 - r2; 
+    dif.print();
+
+    Rational prod = r1 * r2; 
+    prod.simplify();
+    prod.print();
+
+    Rational quot = r1 / r2; 
+    prod.simplify();
+    quot.print();
+}
