@@ -1,0 +1,31 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    int n, cnt = 1;
+    cin >> n;
+    ofstream fout("txt.bin", ios_base::binary);
+    ifstream fin("txt.bin", ios_base::binary);
+    if (n <= 0) {
+        cout << "Извините, число должны быть натуральным" << endl;
+    }
+    for (int i = 1; i <= n; i++) {
+        fout.write((char*)&i, sizeof(int));
+    }
+    fout.close();
+    int tmp;
+    while (fin.peek() != EOF) {
+        fin.read((char*)&tmp, sizeof(int));
+        if (tmp % 3 == 0) {
+            cout << tmp << " ";
+        }
+        if (fin.peek() == EOF) {
+            break;
+        }
+    }
+    fin.close();
+}
