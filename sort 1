@@ -1,0 +1,83 @@
+#include <fstream>
+#include <string>
+#include <iostream> 
+using namespace std;
+
+ifstream in("input.txt");
+ofstream out("output.txt");
+
+struct Student {
+	int year; //год 
+	string surname, name, patronymic; //ФИО
+	int oc1, oc2, oc3, oc4, oc5; //оценки
+
+	int summa() {
+		return oc1 + oc2 + oc3 + oc4 + oc5;
+	};
+
+	void read() {
+		in >> surname >> name >> patronymic >> year >> oc1 >> oc2 >> oc3 >> oc4 >> oc5;
+	};
+
+	void print() {
+		out << surname << ' ' << name << ' ' << patronymic << ' ' << year << ' '
+			<< oc1 << ' ' << oc2 << ' ' << oc3 << ' ' << oc4 << ' ' << oc5 << endl;
+	};
+};
+
+//Функция для сортировки студентов по сумме оценок методом вставки
+void sortvstavka(Student* s, int cout) {
+	for (int i = 1; i < cout; i++)
+		for (int j = i; j > 0; j--)
+			if (s[j].summa() > s[j - 1].summa())
+				swap(s[j], s[j - 1]);
+}
+
+//Функция для сортировки студентов по сумме оценок методом пузырька
+void bubbleSort(Student* s, int count) {
+	for (int i = 0; i < count - 1; i++)
+		for (int j = 0; j < count - i - 1; j++)
+			if (s[j].summa() < s[j + 1].summa())
+				swap(s[j], s[j + 1]);
+}
+
+//Функция для сортировки студентов по сумме оценок методом выбора
+void sortvybor(Student* s, int count) {
+	for (int i = 0; i < count - 1; i++) {
+		int ind = i;
+		for (int j = i + 1; j < count; j++) {
+			if (s[j].summa() > s[ind].summa()) {
+				ind = j;
+			}
+		}
+		swap(s[i], s[ind]);
+	}
+}
+
+
+int main() {
+	int num, k=0;
+	in >> num; out << num << endl;
+	Student* t = new Student[10]; //массив типа Student
+
+	//пока не конец файла считываем и увеличиваем счетчик людей
+	while (in.peek() != EOF) {
+		t[k].read(); k++;
+	}
+
+	//sortvstavka(t, k);
+	//sortvybor(t, k);
+	bubbleSort(t, k);
+
+	for (int i = 0; i < k; i++)
+		t[i].print();
+
+	delete[]t;
+	return 0;
+}
+
+123
+Ак Пл Дм 2001 2 4 2 1 2
+Мс Ал Мп 2002 3 3 2 1 3
+Ак Ал Дм 2003 1 2 3 4 4
+Мс Пп Ам 2004 4 2 1 2 3
