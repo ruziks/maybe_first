@@ -1,0 +1,56 @@
+#include <fstream>
+#include <string>
+#include <iostream> 
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+ifstream in("input.txt");
+ofstream out("output.txt");
+
+struct Student {
+	int year; // Год 
+	string surname, name, patronymic; //ФИО
+	int oc1, oc2, oc3, oc4, oc5; // Оценки
+};
+
+// Компаратор
+bool sum(const Student& b, const Student& c) {
+	int sumB = b.oc1 + b.oc2 + b.oc3 + b.oc4 + b.oc5;
+	int sumC = c.oc1 + c.oc2 + c.oc3 + c.oc4 + c.oc5;
+	if (sumB > sumC)
+		return true;
+	return false;
+
+}
+
+int main() {
+	int num;
+	in >> num; out << num << endl; // Номер группы
+	Student a; 
+	vector<Student> students;
+
+	// Пока не конец файла считываем и записываем в вектор
+	while (in.peek() != EOF) {
+		in >> a.surname >> a.name >> a.patronymic >> a.year >> a.oc1 >> a.oc2 >> a.oc3 >> a.oc4 >> a.oc5;
+		students.push_back(a);
+	}
+	in.close();
+
+	sort(students.begin(), students.end(), sum);
+	//stable_sort(students.begin(), students.end(), sum);
+
+	// Вывод
+	for(unsigned int j = 0; j < students.size(); j++) {
+		out << students[j].surname << ' ' << students[j].name << ' ' << students[j].patronymic << ' ' << students[j].year << ' '
+			<< students[j].oc1 << ' ' << students[j].oc2 << ' ' << students[j].oc3 << ' ' << students[j].oc4 << ' ' << students[j].oc5 << endl;
+	}
+	out.close();
+	return 0;
+}
+
+141
+Рыблов Дмитрий Игоревич 2001 2 4 4 4 4
+Шевцов Роман Вадимович 2002 3 3 3 3 3
+Бибичева Татьяна Сергеевна 2003 1 5 5 5 5
+Шимчук Дмитрий Викторович 2004 4 1 1 1 1
