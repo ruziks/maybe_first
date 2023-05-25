@@ -15,11 +15,6 @@ int main() {
         input >> num;
         flist.push_front(num);
     }
-    while (!file.eof()) {
-        int num;
-        input >> num;
-        s.push(num);
-    }
     input >> x >> y;
     for (auto it = flist.begin(); it != flist.end(); it++) {
         output << *it << " ";
