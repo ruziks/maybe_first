@@ -1,0 +1,30 @@
+#include <iostream>
+#include <fstream>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    ifstream input("input.txt");
+    ofstream output("output.txt");
+    queue<int> q;
+    int x, y, n;
+    input >> n;
+    for (int i = 0; i < n; i++) {
+        int num;
+        input >> num;
+        q.push(num);
+    }
+    input >> x >> y;
+    while (!q.empty()) {
+        int num = q.front();
+        q.pop();
+        output << num << " ";
+        if (num == x) {
+            output << y << " ";
+        }
+    }
+    input.close();
+    output.close();
+    return 0;
+}
