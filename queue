@@ -8,12 +8,11 @@ int main() {
     ifstream input("input.txt");
     ofstream output("output.txt");
     queue<int> q;
-    int x, y, n;
-    input >> n;
-    for (int i = 0; i < n; i++) {
+    int x, y;
+    while (!file.eof()) {
         int num;
         input >> num;
-        q.push(num);
+        s.push(num);
     }
     input >> x >> y;
     while (!q.empty()) {
