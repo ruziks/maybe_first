@@ -8,17 +8,14 @@ ofstream out("output.txt");
 
 struct Student {
 	int year; //год 
-	string surname, name, patronymic; //ФИО
-	int oc1, oc2, oc3, oc4, oc5; //оценки
-
+	string surname, name, patronymic;
+	int oc1, oc2, oc3, oc4, oc5; 
 	int summa() {
 		return oc1 + oc2 + oc3 + oc4 + oc5;
 	};
-
 	void read() {
 		in >> surname >> name >> patronymic >> year >> oc1 >> oc2 >> oc3 >> oc4 >> oc5;
 	};
-
 	void print() {
 		out << surname << ' ' << name << ' ' << patronymic << ' ' << year << ' '
 			<< oc1 << ' ' << oc2 << ' ' << oc3 << ' ' << oc4 << ' ' << oc5 << endl;
@@ -26,8 +23,8 @@ struct Student {
 };
 
 //Функция для сортировки студентов по сумме оценок методом вставки
-void sortvstavka(Student* s, int cout) {
-	for (int i = 1; i < cout; i++)
+void sortvstavka(Student* s, int count) {
+	for (int i = 1; i < count; i++)
 		for (int j = i; j > 0; j--)
 			if (s[j].summa() > s[j - 1].summa())
 				swap(s[j], s[j - 1]);
