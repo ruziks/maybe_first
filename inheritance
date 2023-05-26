@@ -1,0 +1,107 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class TelephoneDirectory {
+public:
+	virtual void info() = 0;
+	virtual bool criterion(string name) = 0;
+};
+
+class Persona : public TelephoneDirectory {
+private:
+	string surname;
+	string address;
+	long int number;
+public:
+	Persona() : surname(""), address(""), number(-1){}
+	Persona(string surname, string address, long int number) : surname(surname), address(address), number(number) {}
+	void info() {
+		cout << "Фамилия: " << surname << endl << "Адрес: " << address << endl << "Номер: " << number;
+	}
+	bool criterion(string surname) {
+		if (this->surname == surname) { return true; }
+		else { return false; }
+	}
+};
+
+class Organization : public TelephoneDirectory {
+private:
+	string name;
+	string address;
+	long int fax;
+	string contact_person;
+	long int number;
+public:
+	Organization() : name(""), address(""), fax(-1), contact_person(""), number(-1) {}
+	Organization(string name, string address, long int fax, string contact_person, long int number) : 
+		name(name), address(address), fax(fax), contact_person(contact_person), number(number) {}
+	void info() {
+		cout << "Название: " << name << endl << "Контактное лицо: " << contact_person << endl << "Адрес: " << address << endl << "Номер: " << number << endl
+			<< "Факс: " << fax;
+	}
+	bool criterion(string surname) {
+		if (contact_person == surname) { return true; }
+		else { return false; }
+	}
+};
+
+class Friend : public TelephoneDirectory {
+private:
+	string surname;
+	string address;
+	long int number;
+	struct birthday {
+		int mounth;
+		int day;
+		int year;
+	};
+	birthday date;
+public:
+	Friend() : surname(""), address(""), number(-1) {
+		date.mounth = -1;
+		date.day = -1;
+		date.year = -1;
+	}
+	Friend(string surname, string address, long int number, int mounth, int day, int year) : surname(surname), address(address), number(number) {
+		date.mounth = mounth;
+		date.day = day;
+		date.year = year;
+	}
+	void info() {
+		cout << "Фамилия: " << surname << endl << "Адрес: " << address << endl << "Номер: " << number << endl << "Дата рождения: " << date.day << '.' << date.mounth << '.'
+			<< date.year << endl;
+	}
+	bool criterion(string surname) {
+		if (this->surname == surname) { return true; }
+		else { return false; }
+	}
+};
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	TelephoneDirectory* arr[4];
+	//Заполни в скобках значения, у Persona(фамилия, адресс, номер), у Organization(название, адрес, факс, фамилия контактного лица, номер), у Friend(фамилия, аддрес, номер, месяц, день, год)
+	arr[0] = new Persona("Резяпов","ул. Навашина, д. 28", 89626172442);
+	arr[1] = new Organization("PopService","ул. Мясокомбинатская, д. 17", 79584362156, "Мишустин",89626174252 );
+	arr[2] = new Friend("Инюшкин","Новый Арбат, д. 777", 89895461973, 12 , 23, 2004);
+	arr[3] = new Persona("Пупкин","ул. Кутякова, д. 2", 89644556589);
+	arr[4] = new Friend("Ванин","Старый Арбат, д. 100", 89369258147,30,05,2004);
+	
+
+	for (int i = 0; i < 5; i++) {
+		arr[i]->info();
+		cout << endl << endl;
+	}
+
+	cout << "Введите фамилию человека, которого требуется найти: " << endl;
+	string name;
+	cin >> name;
+	int res = -1;
+	for (int i = 0; i < 5; i++) {
+		if (arr[i]->criterion(name)) { res = i; }
+	}
+	if (res == -1) cout << "Такой человек не найден" << endl;
+	else arr[res]->info();
+}
