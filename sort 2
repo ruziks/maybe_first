@@ -1,0 +1,120 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+void quickSort(int arr[], int left, int right) {
+    int i = left, j = right;
+    int tmp;
+    int pivot = arr[(left + right) / 2]; // опорный э-т
+    
+    // разделение на две части
+    while (i <= j) {
+        while (arr[i] < pivot)
+            i++;
+        while (arr[j] > pivot)
+            j--;
+        if (i <= j) {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+    }
+    // рекурсивная сортировка левой и правой части
+    if (left < j)
+        quickSort(arr, left, j);
+    if (i < right)
+        quickSort(arr, i, right);
+}
+
+void pushdown(int arr[], int n, int i) {
+    // инициализируем наиб эл-т как корень
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+    //Если левый дочерный эл-т больше корня
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+    //Если парвый дочерный эл-т больше, чем наиб эл-т на данный момент 
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+    //Если самый большой эл-т не корень
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        //Рекурсивно преобразуем в кучу поддерево
+        pushdown(arr, n, largest);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    //Переграппировка массива
+    for (int i = n / 2 - 1; i >= 0; i--)
+        pushdown(arr, n, i);
+    //Один за другим извлекаем эл-ты из кучи
+    for (int i = n - 1; i >= 0; i--) {
+        //Текущий эл-т в конец
+        swap(arr[0], arr[i]);
+        //Для уменьшенной кучи
+        pushdown(arr, i, 0);
+    }
+}
+
+int main() {
+    const int N = 10;
+    int a[N][N];
+    int n; cin >> n;
+    // заполнение массива
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            a[i][j] = rand() % 10;
+    // вывод его
+    for (int i = 0; i < n; i++, cout << endl)
+        for (int j = 0; j < n; j++)
+            cout << a[i][j] << ' ';
+    cout << endl;
+
+    // Сортировка диагоналей выше главной диагонали по убыванию
+    for (int j = 1; j < n; j++) {
+        int v[N]; 
+
+        // в вспомогательный массив переписываем эл-ты выше главной диагонали
+        for (int i = 0, k = j; k < n; i++, k++) {
+            v[i] = a[i][k];
+        }
+        
+        //heapSort(v, n - j);
+        quickSort(v, 0, n - j - 1);
+        reverse(v, v + n - j); // разворачиваем порядок элементов в массиве
+       
+        // переписываем в исходный массив
+        for (int i = 0, k = j; k < n; i++, k++) {
+            a[i][k] = v[i];
+        }
+    }
+
+    // Сортировка диагоналей ниже главной диагонали по возрастанию
+    for (int i = 1; i < n; i++) {
+        int v[N];
+        // в вспомогательный массив переписываем эл-ты ниже главной диагонали
+        for (int j = 0, k = i; k < n; j++, k++) {
+            v[j] = a[k][j];
+        }
+        
+        //heapSort(v, n - i);
+        quickSort(v, 0, n - i - 1);
+
+        // переписываем в исходный массив
+        for (int j = 0, k = i; k < n; j++, k++) {
+            a[k][j] = v[j];
+        }
+    }
+
+    // Вывод отсортированной матрицы
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
