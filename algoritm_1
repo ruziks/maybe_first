@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <numeric>
+#include <algorithm>
+using namespace std;
+
+bool a(pair <int, int> a) {
+	if (a.first < 0) return true;
+	return false;
+}
+
+bool c(pair <int, int> a) {
+	return a.first % a.second == 0 || a.second % a.first == 0;
+}
+
+bool d(pair <int, int> a, pair <int, int> b) {
+	if ((a.first + a.second) > (b.first + b.second)) return false;
+	if ((a.first + a.second) == (b.first + b.second)) return false;
+	return true;
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	vector <pair <int, int>> arr(n);
+
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i].first >> arr[i].second;
+	}
+
+	//a
+	/*cout << "a" << endl;
+	arr.erase(remove_if(arr.begin(), arr.end(), a), arr.end());
+	for (int i = 0; i < arr.size(); i++) {
+		cout << arr[i].first << ' ' << arr[i].second << endl;*/
+	}
+
+	//б
+	/*cout << "b" << endl;
+	double sum = 0;
+	for_each(arr.begin(), arr.end(), [&sum](pair<int, int> a) {sum += a.first; });
+	cout << sum  << endl;*/
+	
+	//в
+	/*cout << "c" << endl;
+	auto res = find_if(arr.begin(), arr.end(), c);
+	cout << (*res).first << ' ' << (*res).second << endl;*/
+
+	//г
+	/*cout << "d" << endl;
+	sort(arr.begin(), arr.end(), d);
+	for (int i = 0; i < n; i++) {
+		cout << arr[i].first << ' ' << arr[i].second << endl;
+	}*/
+
+}
