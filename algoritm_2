@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+#include <numeric>
+#include <utility>
+#include <iterator>
+using namespace std;
+
+class Sound {
+private:
+	int high;
+	int time;
+public:
+	Sound() : high(0), time(0) {}
+	Sound(int high, int time) : high(high), time(time) {}
+	void Set(int high, int time) {
+		this->high = high;
+		this->time = time;
+	}
+	int GetHigh() {
+		return high;
+	}
+	int GetTime() {
+		return time;
+	}
+	void Play() {
+		cout << high << ' ' << time << endl;
+	}
+	bool operator == (Sound a) {
+		if (a.GetHigh() == high && a.GetTime() == time) return true;
+		return false;
+	}
+};
+
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	cout <<"Введите размер первой мелодии:" << endl;
+	int n;
+	cin >> n;
+	cout << "Введите размер второй мелодии:" << endl;
+	int m;
+	cin >> m;
+	vector <Sound> melody1(n);
+	vector <Sound> melody2(m);
+
+	//Заполняем первую мелодию
+	cout << "Введите звуки первой мелодии:" << endl;
+	for (int i = 0; i < n; i++) {
+		int high, time;
+		cin >> high >> time;
+		melody1[i].Set(high, time);
+	}
+	//Заполняем вторую мелодию
+	cout << "Введите звуки второй мелодии:" << endl;
+	for (int i = 0; i < m; i++) {
+		int high, time;
+		cin >> high >> time;
+		melody2[i].Set(high, time);
+	}
+	//Проверяем
+	bool flag = true;
+	if (melody1.size() > melody2.size()) {
+		for (auto current : melody2) {
+			if (find(melody1.begin(), melody1.end(), current) == melody1.end()) {
+				flag = false;
+				break;
+			}
+		}
+	}
+	else {
+		for (auto current : melody1) {
+			if (find(melody2.begin(), melody2.end(), current) == melody2.end()) {
+				flag = false;
+				break;
+			}
+		}
+	}
+	//Ответ
+	if (flag) cout << "Содержится";
+	else cout << "Не содержится";
+}
