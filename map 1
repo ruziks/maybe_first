@@ -1,0 +1,31 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <map>
+using namespace std;
+
+int main() {
+    ifstream fin("input.txt");
+    map<string, int> words; // создаем словарь для хранения слов и их количества
+    string line;
+    getline(fin, line);
+    stringstream ss(line);
+    string first_word;
+    ss >> first_word; // сохраняем первое слово
+    int count = 1; // начинаем считать количество первого слова
+    while (ss >> line) {
+        if (line == first_word) {
+            count++; // увеличиваем количество первого слова
+        }
+        words[line]++; // добавляем слово в словарь и увеличиваем его количество
+    }
+    fin.close();
+    cout << "Words occurring " << count << " times: ";
+    for (auto it = words.begin(); it != words.end(); it++) { // проходим по всем словам в словаре
+        if (it->second == count) { // если количество совпадает с количеством первого слова
+            cout << it->first << " "; // выводим слово
+        }
+    }
+    cout << endl;
+    return 0;
+}
