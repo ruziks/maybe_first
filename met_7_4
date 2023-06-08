@@ -1,0 +1,22 @@
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+int convert_coef(char z) {
+    if (z == '-') { return -1; }
+    if (z == '+') { return 1; }
+}
+
+int main() {
+    string d;
+    getline(cin, d);
+    int sum = (int(d[0]) - 48);
+    for (int i = 1; i < d.size() - 1; i += 2) {
+        sum += convert_coef(d[i]) * (int(d[i + 1]) - 48);
+    }
+    cout << sum;
+    cout << endl;
+    system("pause");
+}
+//d = "1+2-3+4-5+6-8+9-1+1-4"
