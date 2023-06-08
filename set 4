@@ -1,0 +1,34 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <set>
+using namespace std;
+
+int main() {
+    ifstream fin("input.txt");
+    vector<set<int>> numbers; // создаем вектор множеств для хранения чисел из каждой строки
+    string line;
+    while (getline(fin, line)) {
+        set<int> s; // создаем множество для хранения чисел из текущей строки
+        stringstream ss(line);
+        int num;
+        while (ss >> num) {
+            s.insert(num); // добавляем числа в множество
+        }
+        numbers.push_back(s); // добавляем множество в вектор
+    }
+    fin.close();
+    set<int> common_numbers = numbers[0]; // начинаем с первого множества
+    for (int i = 1; i < numbers.size(); i++) { // проходим по всем остальным множествам
+        set<int> intersection; // создаем множество для хранения пересечения текущего множества и общих чисел
+        set_intersection(common_numbers.begin(), common_numbers.end(), numbers[i].begin(), numbers[i].end(), inserter(intersection, intersection.begin())); // находим пересечение
+        common_numbers = intersection; // обновляем общие числа
+    }
+    cout << "Common numbers: ";
+    for (int num : common_numbers) { // выводим все общие числа из множества
+        cout << num << " ";
+    }
+    cout << endl;
+    cout << "Number of common numbers: " << common_numbers.size() << endl; // выводим количество общих чисел
+    return 0;
+}
