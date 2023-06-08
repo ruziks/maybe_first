@@ -1,0 +1,60 @@
+#include <iostream>
+#include <set>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+int main() {
+    string text;
+    getline(cin, text); // считываем весь текст
+    vector<string> sentences; // создаем вектор для хранения предложений
+    stringstream ss(text);
+    string sentence;
+    while (getline(ss, sentence, '.') || getline(ss, sentence, '!') || getline(ss, sentence, '?')) { // разделяем текст на предложения
+        sentences.push_back(sentence);
+    }
+    set<string> question_words; // создаем множество для хранения слов из вопросительных предложений
+    set<string> exclamation_words; // создаем множество для хранения слов из восклицательных предложений
+    set<string> narrative_words; // создаем множество для хранения слов из повествовательных предложений
+    for (string s : sentences) {
+        stringstream ss(s);
+        string word;
+        bool is_question = false;
+        bool is_exclamation = false;
+        while (ss >> word) { // разделяем предложение на слова
+            if (word.back() == '?' && !is_question) { // если предложение вопросительное и еще не было добавлено в множество вопросительных предложений
+                is_question = true;
+                for (char& c : word) {
+                    c = tolower(c); // приводим слово к нижнему регистру
+                }
+                question_words.insert(word.substr(0, word.length() - 1)); // добавляем слово без знака вопроса в множество вопросительных слов
+            }
+            else if (word.back() == '!' && !is_exclamation) { // если предложение восклицательное и еще не было добавлено в множество восклицательных предложений
+                is_exclamation = true;
+                for (char& c : word) {
+                    c = tolower(c); // приводим слово к нижнему регистру
+                }
+                exclamation_words.insert(word.substr(0, word.length() - 1)); // добавляем слово без знака восклицания в множество восклицательных слов
+            }
+            else { // если предложение повествовательное
+                for (char& c : word) {
+                    c = tolower(c); // приводим слово к нижнему регистру
+                }
+                narrative_words.insert(word); // добавляем слово в множество повествовательных слов
+            }
+        }
+    }
+    set<string> common_words; // создаем множество для хранения общих слов
+    for (string word : question_words) {
+        if (exclamation_words.count(word) && !narrative_words.count(word)) { // если слово есть и в вопросительных, и в восклицательных предложениях, но не в повествовательных
+            common_words.insert(word); // добавляем его в множество общих слов
+        }
+    }
+    cout << "Common words: ";
+    for (string word : common_words) { // выводим все общие слова из множества
+        cout << word << " ";
+    }
+    cout << endl;
+    cout << "Number of common words: " << common_words.size() << endl; // выводим количество общих слов
+    return 0;
+}
