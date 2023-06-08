@@ -1,0 +1,36 @@
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n; // считываем количество строк
+    set<char> unique_letters; // создаем множество для хранения уникальных букв
+    set<char> all_letters; // создаем множество для хранения всех букв
+    for (int i = 0; i < n; i++) {
+        string s;
+        getline(cin, s); // считываем строку
+        for (char c : s) {
+            if (isalpha(c)) { // если символ является буквой
+                all_letters.insert(tolower(c)); // добавляем его в множество всех букв
+            }
+        }
+        for (char c : all_letters) {
+            bool found = false;
+            for (int j = i + 1; j < n; j++) { // ищем букву в оставшихся строках
+                if (tolower(s.find(c)) != string::npos) { // если буква найдена
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) { // если буква не найдена в оставшихся строках
+                unique_letters.insert(c); // добавляем ее в множество уникальных букв
+            }
+        }
+        all_letters.clear(); // очищаем множество всех букв для следующей строки
+    }
+    for (char c : unique_letters) { // выводим все уникальные буквы из множества
+        cout << c << " ";
+    }
+    return 0;
+}
